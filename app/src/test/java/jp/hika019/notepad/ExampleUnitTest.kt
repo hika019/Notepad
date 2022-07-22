@@ -1,4 +1,4 @@
-package com.hika019.notepad
+package jp.hika019.notepad
 
 import org.junit.Test
 

@@ -1,10 +1,11 @@
-package com.hika019.notepad
+package jp.hika019.notepad
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.hika019.notepad.R
 import kotlinx.android.synthetic.main.item_message.view.*
 
 
