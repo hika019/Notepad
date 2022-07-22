@@ -2,13 +2,24 @@ package jp.hika019.notepad
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.hika019.notepad.R
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
+import jp.hika019.notepad.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
+            this, R.layout.activity_main
+        )
+        binding.viewModel =this.viewModel
+        binding.lifecycleOwner = this
+
+
     }
 }
