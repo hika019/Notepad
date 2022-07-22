@@ -1,11 +1,12 @@
-package jp.hika019.notepad
+package jp.hika019.notepad.main
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_message.view.*
+import jp.hika019.notepad.R
+import kotlinx.android.synthetic.main.item_subjet.view.*
 
 
 class MainCustomAdapter(
@@ -20,7 +21,7 @@ class MainCustomAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val item = layoutInflater.inflate(R.layout.item_message, parent, false)
+        val item = layoutInflater.inflate(R.layout.item_subjet, parent, false)
         return  CustomViewHolder(item)
     }
 

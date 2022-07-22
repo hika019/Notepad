@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="jp.hika019.notepad.MainViewModel" />
+            name="mainViewModel"
+            type="jp.hika019.notepad.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_input_add"
-            android:onClick="@{() -> viewModel.addButtonTapped()}"
+            android:onClick="@{() -> mainViewModel.addButtonTapped(context)}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
