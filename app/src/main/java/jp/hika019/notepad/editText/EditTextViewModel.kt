@@ -1,19 +1,31 @@
 package jp.hika019.notepad.editText
 
+
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import java.io.File
 
 class EditTextViewModel: ViewModel() {
     val text = MutableLiveData<String>("")
-    var finish = MutableLiveData<Boolean>(false)
+    var saveEnabled = MutableLiveData(false)
 
-    fun save(){
-
+    init {
+        text.asFlow()
+            .onEach {
+                changeEnabled()
+            }.launchIn(viewModelScope)
     }
 
-    fun goMain(){
-        finish.value = true
+    fun save(){
+        //val file = File(context.filesDir, "")
+    }
+
+    private fun changeEnabled(){
+        saveEnabled.value = text.value != ""
     }
 }

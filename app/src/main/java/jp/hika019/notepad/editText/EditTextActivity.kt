@@ -1,14 +1,13 @@
 package jp.hika019.notepad.editText
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import jp.hika019.notepad.R
 import jp.hika019.notepad.databinding.ActivityEditTextBinding
-import kotlinx.android.synthetic.main.activity_edit_text.*
+
 
 class EditTextActivity: AppCompatActivity() {
 
@@ -26,6 +25,7 @@ class EditTextActivity: AppCompatActivity() {
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
     }
 
