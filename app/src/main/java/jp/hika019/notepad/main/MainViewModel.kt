@@ -3,10 +3,8 @@ package jp.hika019.notepad.main
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import jp.hika019.notepad.addText.AddTextActivity
+import jp.hika019.notepad.editText.EditTextActivity
 
 class MainViewModel: ViewModel() {
     private val TAG = "MainViewModel"
@@ -14,7 +12,7 @@ class MainViewModel: ViewModel() {
 
     fun addButtonTapped(context: Context){
         Log.d(TAG, "addButtonTapped")
-        val intent = Intent(context, AddTextActivity::class.java)
+        val intent = Intent(context, EditTextActivity::class.java)
         context.startActivity(intent)
     }
 }

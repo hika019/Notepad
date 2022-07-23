@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".addText.AddTextActivity"/>
+        <activity android:name=".editText.EditTextActivity"/>
     </application>
 
 </manifest>

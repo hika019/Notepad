@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Notepad</string>
 
-    <string name="add">追加</string>
+    <string name="save">保存</string>
 </resources>

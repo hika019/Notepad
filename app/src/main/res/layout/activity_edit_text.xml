@@ -7,8 +7,8 @@
     
     <data>
         <variable
-            name="addViewModel"
-            type="jp.hika019.notepad.addText.AddTextViewModel" />
+            name="editViewModel"
+            type="jp.hika019.notepad.editText.EditTextViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,9 +18,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,19 +31,22 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:gravity="start|top"
             android:text="MultiAutoCompleteTextView"
-            app:layout_constraintBottom_toTopOf="@+id/addButton"
-            app:layout_constraintEnd_toEndOf="@+id/addButton"
-            app:layout_constraintStart_toStartOf="@+id/addButton"
+            app:layout_constraintBottom_toTopOf="@+id/saveButton"
+            app:layout_constraintEnd_toEndOf="@+id/saveButton"
+            app:layout_constraintStart_toStartOf="@+id/saveButton"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/saveButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_height="60dp"
             android:layout_margin="16dp"
-            android:text="@string/add"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/edit_text_save_button"
+            android:onClick="@{() -> editViewModel.save()}"
+            android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
