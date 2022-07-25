@@ -10,14 +10,23 @@
     android:layout_margin="8dp"
     android:gravity="center">
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/handle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:padding="0dp"
+        android:src="@drawable/baseline_table_rows_20" />
+
     <TextView
         android:id="@+id/itemSubject"
-        android:layout_weight="4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_weight="4"
         android:maxLines="1"
-        android:textSize="@dimen/textSize"/>
+        android:paddingStart="8dp"
+        android:text="TextView"
+        android:textSize="@dimen/textSize" />
 
     <ImageView
         android:id="@+id/deleteTxt"

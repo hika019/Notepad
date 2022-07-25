@@ -4,14 +4,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import jp.hika019.notepad.R
+import jp.hika019.notepad.txtData
 import kotlinx.android.synthetic.main.item_subjet.view.*
 
 
-class MainCustomAdapter(
-    private val txtList :ArrayList<String>
-): RecyclerView.Adapter<MainCustomAdapter.CustomViewHolder>() {
+class MainCustomAdapter(): RecyclerView.Adapter<MainCustomAdapter.CustomViewHolder>() {
 
     private val TAG ="MainCustomAdapter"
 
@@ -26,18 +26,25 @@ class MainCustomAdapter(
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.subject.text = txtList[position]
+        holder.subject.text = txtData.value!![position]
         holder.view.setOnClickListener{
             Log.d(TAG, "Click: view")
         }
 
         holder.view.deleteTxt.setOnClickListener {
             Log.d(TAG, "Click: deleteTxt")
+            removeItem(position)
         }
-
     }
 
     override fun getItemCount(): Int {
-        return txtList.size
+        return txtData.value!!.size
+    }
+
+    private fun removeItem(position: Int){
+        //txtList.removeAt(position)
+        txtData.value!!.removeAt(position)
+        notifyItemRemoved(position)
+        notifyDataSetChanged()
     }
 }
