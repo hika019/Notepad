@@ -1,10 +1,13 @@
 package jp.hika019.notepad.editText
 
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import jp.hika019.notepad.NotepadRepository
+import jp.hika019.notepad.txtData
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -19,8 +22,13 @@ class EditTextViewModel: ViewModel() {
             }.launchIn(viewModelScope)
     }
 
-    fun save(){
-        //val file = File(context.filesDir, "")
+    fun save(context: Context){
+        if (text.value.isNullOrEmpty()){
+            return
+        }
+        txtData.value!!.add(0, text.value!!)
+        val notepadRepository = NotepadRepository(context)
+        notepadRepository.writeData(txtData.value!!)
     }
 
     private fun changeEnabled(){

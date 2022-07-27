@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import jp.hika019.notepad.NotepadRepository
 import jp.hika019.notepad.R
 import jp.hika019.notepad.databinding.ActivityMainBinding
 import jp.hika019.notepad.txtData
@@ -17,6 +19,10 @@ class MainActivity() : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    init {
+        txtData.value = arrayListOf()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,7 +32,8 @@ class MainActivity() : AppCompatActivity() {
         binding.mainViewModel =this.viewModel
         binding.lifecycleOwner = this
 
-        txtData.value = arrayListOf("aaa", "iii", "uuu")
+        val notepadRepository = NotepadRepository(this)
+        txtData.value = notepadRepository.readData()
 
         val adapter = MainCustomAdapter()
         val layoutManager = LinearLayoutManager(this)
@@ -46,7 +53,6 @@ class MainActivity() : AppCompatActivity() {
 
                 val tmp = txtData.value!!.removeAt(from)
                 txtData.value!!.add(to, tmp)
-
                 adapter.notifyItemMoved(from, to)
                 return true
             }
@@ -56,8 +62,12 @@ class MainActivity() : AppCompatActivity() {
             }
         })
 
-
-
+        /*
+        txtData.observe(this, Observer {
+            notepadRepository.writeData(txtData.value!!)
+            txtData.value = notepadRepository.readData()
+        })
+         */
 
         recycleview.adapter = adapter
         recycleview.layoutManager = layoutManager
