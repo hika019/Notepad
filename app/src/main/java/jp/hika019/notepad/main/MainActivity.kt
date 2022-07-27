@@ -2,6 +2,7 @@ package jp.hika019.notepad.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -12,12 +13,14 @@ import jp.hika019.notepad.NotepadRepository
 import jp.hika019.notepad.R
 import jp.hika019.notepad.databinding.ActivityMainBinding
 import jp.hika019.notepad.txtData
+import jp.hika019.notepad.updateTxtData
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity() : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+    private val TAG = "MainActivity"
 
     init {
         txtData.value = arrayListOf()
@@ -35,10 +38,10 @@ class MainActivity() : AppCompatActivity() {
         val notepadRepository = NotepadRepository(this)
         txtData.value = notepadRepository.readData()
 
-        val adapter = MainCustomAdapter()
-        val layoutManager = LinearLayoutManager(this)
-        val recyclerView = binding.recycleview
 
+        val recyclerView = binding.recycleview
+        val layoutManager = LinearLayoutManager(this)
+        var adapter = MainCustomAdapter(txtData.value!!)
 
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
@@ -48,12 +51,22 @@ class MainActivity() : AppCompatActivity() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
+
                 val from = viewHolder.adapterPosition
                 val to = target.adapterPosition
 
                 val tmp = txtData.value!!.removeAt(from)
                 txtData.value!!.add(to, tmp)
                 adapter.notifyItemMoved(from, to)
+
+                //入れ替えの反映
+                notepadRepository.writeData(txtData.value!!)
+
+                //TODO 要変更
+                txtData.value = notepadRepository.readData()
+                Log.d(TAG, notepadRepository.readData().toString())
+                Log.d(TAG, txtData.value.toString())
+
                 return true
             }
 
@@ -62,20 +75,21 @@ class MainActivity() : AppCompatActivity() {
             }
         })
 
-        /*
-        txtData.observe(this, Observer {
-            notepadRepository.writeData(txtData.value!!)
-            txtData.value = notepadRepository.readData()
-        })
-         */
+        //recycleviewの更新
+        listOf(txtData, updateTxtData).onEach {
+            it.observe(this, Observer {
+                notepadRepository.writeData(txtData.value!!)
+                Log.d(TAG, txtData.value.toString())
 
-        recycleview.adapter = adapter
-        recycleview.layoutManager = layoutManager
-        recycleview.setHasFixedSize(true)
+                adapter = MainCustomAdapter(txtData.value!!)
+                recycleview.adapter = adapter
+            })
+
+        }
+
         touchHelper.attachToRecyclerView(recyclerView)
         recycleview.addItemDecoration(touchHelper)
-
-
-
+        recycleview.layoutManager = layoutManager
+        recycleview.setHasFixedSize(true)
     }
 }

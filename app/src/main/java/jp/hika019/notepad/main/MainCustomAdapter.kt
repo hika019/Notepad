@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jp.hika019.notepad.R
 import jp.hika019.notepad.txtData
+import jp.hika019.notepad.updateTxtData
 import kotlinx.android.synthetic.main.item_subjet.view.*
 
 
-class MainCustomAdapter(): RecyclerView.Adapter<MainCustomAdapter.CustomViewHolder>() {
+class MainCustomAdapter(private val txtArrayList: ArrayList<String>): RecyclerView.Adapter<MainCustomAdapter.CustomViewHolder>() {
 
     private val TAG ="MainCustomAdapter"
 
@@ -41,9 +42,9 @@ class MainCustomAdapter(): RecyclerView.Adapter<MainCustomAdapter.CustomViewHold
     }
 
     private fun removeItem(position: Int){
-        //txtList.removeAt(position)
         txtData.value!!.removeAt(position)
         notifyItemRemoved(position)
         notifyDataSetChanged()
+        updateTxtData.value = true
     }
 }
