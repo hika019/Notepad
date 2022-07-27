@@ -41,7 +41,7 @@ class MainActivity() : AppCompatActivity() {
 
         val recyclerView = binding.recycleview
         val layoutManager = LinearLayoutManager(this)
-        var adapter = MainCustomAdapter(txtData.value!!)
+        var adapter = MainCustomAdapter(this)
 
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
@@ -81,7 +81,7 @@ class MainActivity() : AppCompatActivity() {
                 notepadRepository.writeData(txtData.value!!)
                 Log.d(TAG, txtData.value.toString())
 
-                adapter = MainCustomAdapter(txtData.value!!)
+                adapter = MainCustomAdapter(this)
                 recycleview.adapter = adapter
             })
 

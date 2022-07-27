@@ -2,6 +2,7 @@ package jp.hika019.notepad.editText
 
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
@@ -13,9 +14,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 class EditTextViewModel: ViewModel() {
+    var position = -1
     val text = MutableLiveData<String>("テスト")
     var saveEnabled = MutableLiveData(false)
     val editActivityFinish = MutableLiveData<Boolean>(false)
+    val TAG = "EditTextViewModel"
 
     init {
         text.asFlow()
@@ -28,7 +31,14 @@ class EditTextViewModel: ViewModel() {
         if (text.value.isNullOrEmpty()){
             return
         }
-        txtData.value!!.add(0, text.value!!)
+        Log.d(TAG, position.toString())
+
+        if (position!= -1){
+            txtData.value!!.removeAt(position)
+            txtData.value!!.add(position, text.value!!)
+        }else{
+            txtData.value!!.add(0, text.value!!)
+        }
         val notepadRepository = NotepadRepository(context)
         notepadRepository.writeData(txtData.value!!)
         editActivityFinish.value = true

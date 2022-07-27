@@ -30,6 +30,12 @@ class EditTextActivity: AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val position =  intent.getIntExtra("position", -1)
+        if (position != -1){
+            viewModel.text.value = txtData.value!![position]
+            viewModel.position = position
+        }
+
 
         viewModel.editActivityFinish.observe(this, Observer {
             if (viewModel.editActivityFinish.value == true){
